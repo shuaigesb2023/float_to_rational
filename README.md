@@ -13,13 +13,13 @@
 本项目可以将ftr.cpp下载并使用include展开使用
 所用到的库
 ftr.cpp ： 
-<vector>使用了vector成员
-<utility>使用了pairc成员
-<string>使用了string成员
+vector 使用了vector成员
+utility 使用了pairc成员
+string 使用了string成员
 
 main.cpp：
 与ftr.cpp相同
-<stdio>使用ptintf输出
+stdio 使用ptintf输出
 
 example.cpp：
-<iostream>使用cout输出
+iostream 使用cout输出
