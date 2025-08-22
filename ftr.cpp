@@ -3,61 +3,23 @@
 #include<string>
 namespace templatestdftr {
     /*
-    ½«º¯ÊıÄ£°å»¯
-    ÀàĞÍĞèÒªÖ§³Ö + - / % * = == 
+    å°†å‡½æ•°æ¨¡æ¿åŒ–
+    ç±»å‹éœ€è¦æ”¯æŒ + - / % * = == 
     */
     template <class TP = unsigned long long>
-    TP unllgcd(TP a, TP b) {//Çó×î´ó¹«Ô¼Êı£¬Ä¬ÈÏa>=b
+    TP unllgcd(TP a, TP b) {//æ±‚æœ€å¤§å…¬çº¦æ•°ï¼Œé»˜è®¤a>=b
         if (b == TP(0))return a;
         return unllgcd(b, a % b);
     }
     std::pair<unsigned long long, unsigned long long> jiance(std::vector<short>& n) {
-        //¼ì²âÑ­»·²¿·Ö£¬·µ»ØÑ­»·µÄ¿ªÊ¼ºÍ½áÊø£¨×ó±ÕÓÒ±Õ£©
-        unsigned long long h1[10] = {};//Ê¹ÓÃ¹şÏ£±í¼ÇÂ¼Êı×Ö³öÏÖµÄ´ÎÊı
+        //æ£€æµ‹å¾ªç¯éƒ¨åˆ†ï¼Œè¿”å›å¾ªç¯çš„å¼€å§‹å’Œç»“æŸï¼ˆå·¦é—­å³é—­ï¼‰
+        unsigned long long h1[10] = {};//ä½¿ç”¨å“ˆå¸Œè¡¨è®°å½•æ•°å­—å‡ºç°çš„æ¬¡æ•°
         unsigned long long h2[10] = {};
 
-        for (short& i : n)h1[i]++;//µÚÒ»ÂÖ±éÀú¼ÇÂ¼Ã¿¸öÊı×ÖµÄ×Ü³öÏÖ´ÎÊı£¨Ê¹ÓÃµü´úÆ÷£©
+        for (short& i : n)h1[i]++;//ç¬¬ä¸€è½®éå†è®°å½•æ¯ä¸ªæ•°å­—çš„æ€»å‡ºç°æ¬¡æ•°ï¼ˆä½¿ç”¨è¿­ä»£å™¨ï¼‰
         bool flag = true;
-        for (int i = 0; i < 10; i++) {
-            if (h1[i] & 1) {
-                flag = false;
-                break;
-            }
-        }
-        if (flag) {
-            //¼ì²âÊÇ·ñÑ­»·
-            //Ê¹ÓÃË«Ö¸Õë
-            //Õâ¶Î¸ÄµÄ±È½Ï¶à²»Ğ´Ğ¡×¢ÊÍÁË
-            //Ô­ÀíÎª²»¶Ï½«Ñ­»··¶Î§¼õ°ëÖ±µ½²»Ñ­»·ÎªÖ¹Èç¹ûµÚÒ»ÂÖ²»Ñ­»·²à½øÈëµÚ¶şÂÖ±éÀú
-            unsigned long long i1 = 0, i2 = n.size();
-            unsigned long long ti1, ti2;
-            bool ok = true;
-            while (!(i2 & 1) and ok) {
-                ti1 = 0;
-                ti2 = i2 >> 1;
-                while (ti2 < i2) {
-                    if (n[ti1] != n[ti2]) {
-                        ok = false;
-                        break;
-                    }
-                    ti1++;
-                    ti2++;
-                }if (ok) {
-                    i2 >>= 1;
-                }
-                else if (i2 == n.size()) {//
-                    break;
-                }
-                else {
-                    return { 0,i2 - 1 };
-                }
-            }if (ok) {
-                return { 0,i2 - 1 };
-            }
-        }
 
-        for (unsigned long long i = 0; i < n.size(); i++) {//µÚ¶şÂÖ±éÀú
-            h2[n[i]]++;
+        for (unsigned long long i = 0; i < n.size(); i++) {//ç¬¬äºŒè½®éå†
             flag = true;
             for (int j = 0; j < 10; j++) {
                 if ((h1[j] - h2[j]) & 1) {
@@ -70,6 +32,10 @@ namespace templatestdftr {
                 unsigned long long ti1, ti2;
                 bool ok = true;
                 while (!((i2 - i1) & 1) and ok) {
+                    //æ£€æµ‹æ˜¯å¦å¾ªç¯
+                    //ä½¿ç”¨åŒæŒ‡é’ˆ
+                    //è¿™æ®µæ”¹çš„æ¯”è¾ƒå¤šä¸å†™å°æ³¨é‡Šäº†
+                    //åŸç†ä¸ºä¸æ–­å°†å¾ªç¯èŒƒå›´å‡åŠç›´åˆ°ä¸å¾ªç¯ä¸ºæ­¢å¦‚æœç¬¬ä¸€è½®ä¸å¾ªç¯ä¾§è¿›å…¥ç¬¬äºŒè½®éå†
                     ti1 = i1;
                     ti2 = i1 + ((i2 - i1) >> 1);
                     while (ti2 < i2) {
@@ -88,68 +54,70 @@ namespace templatestdftr {
                     else {
                         return { i1,i2 - 1 };
                     }
-                }if (ok) {//Èç¹û±£³ÖÑ­»··µ»Ø
+                }if (ok) {//å¦‚æœä¿æŒå¾ªç¯è¿”å›
                     return { i1,i2 - 1 };
                 }
             }
+            h2[n[i]]++;
         }
-        return { 0,0 };
+        return { n.size()-1,n.size()-1};
 
     }
     template <class TP = unsigned long long>
     std::pair<TP, TP> float_to_rational(const std::string num) {
-        //·µ»ØÖµµÚÒ»¸öÎª·Ö×ÓµÚ¶ş¸öÎª·ÖÄ¸
-        TP up = TP(0), down = TP(1);//up·Ö×Ó£¬down·ÖÄ¸
+        //è¿”å›å€¼ç¬¬ä¸€ä¸ªä¸ºåˆ†å­ç¬¬äºŒä¸ªä¸ºåˆ†æ¯
+        TP up = TP(0), down = TP(1);//upåˆ†å­ï¼Œdownåˆ†æ¯
         unsigned long long i = 0;
-        while (num[i] != '.') {//´¦ÀíÕûÊı²¿·Ö
+        while (i < num.size() and num[i] != '.') {//å¤„ç†æ•´æ•°éƒ¨åˆ†
             up = up * TP(10) + TP(num[i] - '0');
             i++;
         }
+        if (i == num.size())return{ up,down };//ä¸æ˜¯å°æ•°ï¼Œç›´æ¥è¿”å›
         i++;
-        std::vector<short> n;//Ê¹ÓÃvectorÈİÆ÷ÔİÊ±´æ´¢Ğ¡ÊıÎ»
+        std::vector<short> n;//ä½¿ç”¨vectorå®¹å™¨æš‚æ—¶å­˜å‚¨å°æ•°ä½
         while (i < num.size() and num[i] != '.') {
             n.emplace_back(num[i] - '0');
             i++;
         }
-        if (i == num.size()) {//¼ì²éÊÇ·ñÎªÑ­»·Ğ¡Êı
-            //´¦Àí²»Ñ­»·Ğ¡Êı
-            //Ö±½ÓÌí¼Óµ½Ä©Î²
+        if (i == num.size()) {//æ£€æŸ¥æ˜¯å¦ä¸ºå¾ªç¯å°æ•°
+            //å¤„ç†ä¸å¾ªç¯å°æ•°
+            //ç›´æ¥æ·»åŠ åˆ°æœ«å°¾
             for (short& i : n) {
                 up = up * TP(10) + TP(i);
                 down = down * TP(10);
             }
         }
         else {
-            //´¦ÀíÑ­»·Ğ¡Êı
-            //ÏÈ¼ì²âÑ­»·²¿·Ö£¬ÔÙ½«²»Ñ­»·²¿·ÖÖ±½ÓÌí¼Ó£¬ÔÙ¼Ó£¨Ñ­»·²¿·Ö/999...9£¨Ñ­»·²¿·Ö³¤¶È¸ö9£©/pow£¨10£¬len£¨²»Ñ­»·²¿·Ö£©£©£©
+            //å¤„ç†å¾ªç¯å°æ•°
+            //å…ˆæ£€æµ‹å¾ªç¯éƒ¨åˆ†ï¼Œå†å°†ä¸å¾ªç¯éƒ¨åˆ†ç›´æ¥æ·»åŠ ï¼Œå†åŠ ï¼ˆå¾ªç¯éƒ¨åˆ†/999...9ï¼ˆå¾ªç¯éƒ¨åˆ†é•¿åº¦ä¸ª9ï¼‰/powï¼ˆ10ï¼Œlenï¼ˆä¸å¾ªç¯éƒ¨åˆ†ï¼‰ï¼‰ï¼‰
             std::pair<unsigned long long, unsigned long long> xun = jiance(n);
 
-            //ÓÃ±äÁ¿ÁÙÊ±¼ÇÂ¼Ñ­»·²¿·Ö
+            //ç”¨å˜é‡ä¸´æ—¶è®°å½•å¾ªç¯éƒ¨åˆ†
             TP xup = TP(0), xdown = TP(0);
             for (unsigned long long i = xun.first; i <= xun.second; i++) {
                 xup = xup * TP(10) + TP(n[i]);
                 xdown = xdown * TP(10) + TP(9);
             }
 
-            //½«²»Ñ­»·²¿·ÖÌí¼Ó
+            //å°†ä¸å¾ªç¯éƒ¨åˆ†æ·»åŠ 
             for (unsigned long long i = 0; i < xun.first; i++) {
                 up = up * TP(10) + TP(n[i]);
                 down = down * TP(10);
             }
 
-            //Í¨·Ö
+            //é€šåˆ†
             up = up * xdown;
             down = down * xdown;
 
-            //Ïà¼Ó
+            //ç›¸åŠ 
             up = up + xup;
         }
-        //Ô¼·Ö»¯¼ò£¬Ê¹ÓÃgcd
+        //çº¦åˆ†åŒ–ç®€ï¼Œä½¿ç”¨gcd
         TP g = unllgcd<TP>(up, down);
         up = up / g;
         down = down / g;
 
-        //·µ»Ø
+        //è¿”å›
         return { up,down };
     }
 }
